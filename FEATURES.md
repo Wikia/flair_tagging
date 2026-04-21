@@ -1,11 +1,25 @@
 # Flair Tagging — Feature Overview
 
 ## Current Features - Posting
-@Abraar
+
+### "What's on Your Mind?" Entry Point
+A prompt box labeled **"What's on your mind?"** is displayed at the top of the discussion feed. Clicking it opens the post composer.
+
+### Post Composer
+An editable overlay/modal that supports three content types:
+- **Text** — freeform written content
+- **Image** — photo or media upload
+- **Link** — embedded URL with preview
+
+### Flair Selection
+In the top-right corner of the post composer, a flair picker lets the user assign a category to their post before submitting. The available flair terms mirror the discussion tabs:
+- FanFic, Trading, Event, Ranking, Poll, New Launch, Opinion, Theories
+
+Selecting a flair is optional; posts without one will not display a category badge in the thread list.
 
 ## Current Features - Discussion
 
-### Category Tabs
+### Category aka Flair Tabs
 Eight top-level tabs filter threads by type:
 - **All** (Including all threads as an overview)
 - **FanFic**
@@ -19,11 +33,11 @@ Eight top-level tabs filter threads by type:
 
 The default view is on the **All** tab.
 
-### Category Badge
-Besides each thread's title, add a small icon indicating the category it belongs to. If no category is assigned, then skip.
+### Category aka Flair Badge
+Besides each thread's title, add a small icon indicating the flair it belongs to. If no flair is assigned, then skip.
 
 ### Keyword Search
-A search bar within each category filters threads in real time by matching the keyword against both the thread **title** and **content**.
+A search bar within each flair filters threads in real time by matching the keyword against both the thread **title** and **content**.
 
 ### Sort Pills
 Four inline sort options let users reorder the thread list:
