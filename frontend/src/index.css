@@ -1,61 +1,169 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  /* Accent */
+  --accent: #E8375C;
+  --accent-dark: #C82A4A;
+  --accent-light: #FFD5DC;
+  /* Page */
+  --bg: #FDF5EC;
+  /* Cards & surfaces */
+  --card-bg: #ffffff;
+  --card-text: #18181b;
+  --card-text-sec: #71717a;
+  /* Inputs */
+  --input-bg: #fafafa;
+  /* Controls panel */
+  --controls-bg: #ffffff;
+  --controls-border: #e4e4e7;
+  /* Pills / tabs */
+  --pill-bg: #f4f4f5;
+  --pill-text: #52525b;
+  --pill-border: #e4e4e7;
+  --pill-hover: #e9e9eb;
+  --active-pill-bg: #18181b;
+  --active-pill-text: #ffffff;
+  /* Flair badge */
+  --badge-bg: var(--accent-light);
+  --badge-text: var(--accent-dark);
+}
+
 body {
   font-family: system-ui, sans-serif;
-  background: #f4f4f5;
-  color: #18181b;
+  background: var(--bg);
+  color: var(--card-text);
+  transition: background 0.5s;
+  min-height: 100vh;
 }
 
 .app {
-  max-width: 640px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Entry box */
-.entry-box {
+/* ── App Header ─────────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.1rem 2rem;
+  background: var(--accent);
+  color: #fff;
+  transition: background 0.5s;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  min-height: 68px;
+}
+
+/* Harry Potter header — Hogwarts at night */
+.app[data-wiki="harry-potter"] .app-header {
+  background:
+    linear-gradient(to right, rgba(8,12,24,0.88) 0%, rgba(8,12,24,0.55) 60%, rgba(8,12,24,0.3) 100%),
+    url('/image/harry-potter-2.jpg') center 30% / cover no-repeat;
+  min-height: 110px;
+  border-bottom: 2px solid #C9A84C;
+}
+
+/* Dandy's World header */
+.app[data-wiki="dandy"] .app-header {
+  background:
+    linear-gradient(to right, rgba(200,50,140,0.75) 0%, rgba(120,40,180,0.55) 50%, rgba(200,50,140,0.4) 100%),
+    url('/image/dandy-1.jpg') center 20% / cover no-repeat;
+  min-height: 110px;
+  border-bottom: 3px solid #FF4FAD;
+}
+
+/* Hunger Games header */
+.app[data-wiki="hunger-games"] .app-header {
+  background:
+    linear-gradient(to right, rgba(8,4,2,0.9) 0%, rgba(20,10,4,0.7) 50%, rgba(8,4,2,0.5) 100%),
+    url('/image/hunger-game-2.jpg') center 20% / cover no-repeat;
+  min-height: 110px;
+  border-bottom: 2px solid #E8A020;
+}
+
+.app-logo-wrap {
+  width: 44px;
+  height: 44px;
   background: #fff;
-  border: 1px solid #e4e4e7;
-  border-radius: 8px;
-  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.app-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.app-header-text { display: flex; flex-direction: column; gap: 0.15rem; }
+.app-brand { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+.app-wiki-label { font-size: 0.76rem; opacity: 0.75; font-weight: 400; }
+
+.app-decoration {
+  margin-left: auto;
+  font-size: 1.5rem;
+  letter-spacing: 0.35rem;
+  opacity: 0.9;
+}
+
+.app-content {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  flex: 1;
+}
+
+/* ── Entry box ──────────────────────────────────────────────────── */
+.entry-box {
+  background: var(--card-bg);
+  border: 1.5px solid var(--controls-border);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
   cursor: pointer;
-  color: #71717a;
+  color: var(--card-text-sec);
   font-size: 0.95rem;
   transition: border-color 0.15s;
 }
-.entry-box:hover { border-color: #a1a1aa; }
+.entry-box:hover { border-color: var(--accent); }
 
-/* Overlay */
+/* ── Overlay ────────────────────────────────────────────────────── */
 .composer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
 }
 
+/* Composer always stays light regardless of wiki theme */
 .composer {
-  background: #fff;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 14px;
   width: 100%;
-  max-width: 520px;
-  padding: 1.25rem;
+  max-width: 580px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  color: #18181b;
 }
 
-.composer-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.composer-header { display: flex; align-items: center; justify-content: space-between; }
+.composer-title { font-weight: 600; font-size: 1rem; color: #18181b; }
 
-.composer-title { font-weight: 600; font-size: 1rem; }
-
-/* Flair picker */
+/* ── Flair picker ───────────────────────────────────────────────── */
 .flair-picker { position: relative; }
 
 .flair-trigger {
@@ -74,7 +182,7 @@ body {
   position: absolute;
   right: 0;
   top: calc(100% + 4px);
-  background: #fff;
+  background: #ffffff;
   border: 1px solid #e4e4e7;
   border-radius: 8px;
   list-style: none;
@@ -82,18 +190,15 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   z-index: 10;
   overflow: hidden;
+  color: #18181b;
 }
 
-.flair-option {
-  padding: 0.5rem 0.875rem;
-  font-size: 0.87rem;
-  cursor: pointer;
-}
+.flair-option { padding: 0.5rem 0.875rem; font-size: 0.87rem; cursor: pointer; color: #18181b; }
 .flair-option:hover { background: #f4f4f5; }
-.flair-option.selected { font-weight: 600; color: #7c3aed; }
+.flair-option.selected { font-weight: 600; color: var(--accent); }
 .flair-option.flair-clear { color: #ef4444; font-size: 0.8rem; border-bottom: 1px solid #f4f4f5; }
 
-/* Tabs */
+/* ── Composer tabs ──────────────────────────────────────────────── */
 .composer-tabs { display: flex; gap: 0.5rem; }
 
 .tab-btn {
@@ -106,17 +211,14 @@ body {
   color: #71717a;
 }
 .tab-btn.active {
-  background: #7c3aed;
-  border-color: #7c3aed;
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
   font-weight: 500;
 }
 
-/* Body */
-.composer-body {
-  min-height: 120px;
-  display: flex;
-}
+/* ── Composer body ──────────────────────────────────────────────── */
+.composer-body { min-height: 120px; display: flex; }
 
 .composer-body textarea,
 .composer-body input[type="url"] {
@@ -128,9 +230,11 @@ body {
   font-family: inherit;
   resize: vertical;
   outline: none;
+  color: #18181b;
+  background: #ffffff;
 }
 .composer-body textarea:focus,
-.composer-body input[type="url"]:focus { border-color: #7c3aed; }
+.composer-body input[type="url"]:focus { border-color: var(--accent); }
 .composer-body textarea { min-height: 120px; }
 
 .image-upload {
@@ -146,14 +250,10 @@ body {
   padding: 1.5rem;
   text-align: center;
 }
-.image-upload:hover { border-color: #7c3aed; color: #7c3aed; }
+.image-upload:hover { border-color: var(--accent); color: var(--accent); }
 
-/* Footer */
-.composer-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
+/* ── Composer footer ────────────────────────────────────────────── */
+.composer-footer { display: flex; justify-content: flex-end; gap: 0.5rem; }
 
 .btn-cancel {
   background: none;
@@ -167,7 +267,7 @@ body {
 .btn-cancel:hover { background: #f4f4f5; }
 
 .btn-submit {
-  background: #7c3aed;
+  background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -175,16 +275,17 @@ body {
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
+  transition: background 0.15s;
 }
-.btn-submit:hover:not(:disabled) { background: #6d28d9; }
+.btn-submit:hover:not(:disabled) { background: var(--accent-dark); }
 .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
 
-/* Post list */
-.post-list { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+/* ── Post list ──────────────────────────────────────────────────── */
+.post-list { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
 
 .post-card {
-  background: #fff;
-  border: 1px solid #e4e4e7;
+  background: var(--card-bg);
+  border: 1px solid var(--controls-border);
   border-radius: 8px;
   padding: 0.875rem 1rem;
   display: flex;
@@ -194,8 +295,8 @@ body {
 
 .post-flair {
   display: inline-block;
-  background: #ede9fe;
-  color: #6d28d9;
+  background: var(--badge-bg);
+  color: var(--badge-text);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.15rem 0.5rem;
@@ -203,4 +304,417 @@ body {
   width: fit-content;
 }
 
-.post-type { font-size: 0.78rem; color: #a1a1aa; text-transform: capitalize; }
+.post-type { font-size: 0.78rem; color: var(--card-text-sec); text-transform: capitalize; }
+
+/* ── Discussion ─────────────────────────────────────────────────── */
+.discussion { display: flex; flex-direction: column; gap: 0.875rem; }
+
+/* Controls panel */
+.discussion-controls {
+  background: var(--controls-bg);
+  border: 1.5px solid var(--controls-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+/* Dandy's: pastel rainbow border animation */
+.app[data-wiki="dandy"] .discussion-controls {
+  border: 2px solid #FFB8E8;
+  box-shadow: 0 0 0 3px rgba(255,110,199,0.1);
+}
+
+/* HP: subtle gold glow */
+.app[data-wiki="harry-potter"] .discussion-controls {
+  border: 1.5px solid #2C3E5A;
+  box-shadow: 0 0 12px rgba(201,168,76,0.08);
+}
+
+/* HG: ember glow */
+.app[data-wiki="hunger-games"] .discussion-controls {
+  border: 1.5px solid #3A2010;
+  box-shadow: 0 0 12px rgba(232,160,32,0.07);
+}
+
+.filter-row { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.filter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--card-text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Wiki filter ────────────────────────────────────────────────── */
+.wiki-filter { position: relative; }
+.wiki-filter-input-wrap { position: relative; display: flex; align-items: center; }
+
+.wiki-filter-icon {
+  position: absolute;
+  left: 0.8rem;
+  font-size: 0.95rem;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.wiki-filter-input {
+  width: 100%;
+  border: 1.5px solid var(--controls-border);
+  border-radius: 8px;
+  padding: 0.65rem 2.5rem 0.65rem 2.4rem;
+  font-size: 0.93rem;
+  font-family: inherit;
+  outline: none;
+  background: var(--input-bg);
+  color: var(--card-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+.wiki-filter-input::placeholder { color: var(--card-text-sec); opacity: 0.7; }
+.wiki-filter-input:focus { border-color: var(--accent); background: var(--card-bg); }
+
+.wiki-clear-btn {
+  position: absolute;
+  right: 0.65rem;
+  background: none;
+  border: none;
+  color: var(--card-text-sec);
+  font-size: 1.15rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+.wiki-clear-btn:hover { color: #ef4444; }
+
+.wiki-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--controls-bg);
+  border: 1px solid var(--controls-border);
+  border-radius: 10px;
+  list-style: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.wiki-option { padding: 0.65rem 1rem; font-size: 0.9rem; cursor: pointer; color: var(--card-text); }
+.wiki-option:hover { background: var(--pill-hover); }
+.wiki-option.selected { font-weight: 600; color: var(--accent); }
+.wiki-option-empty { padding: 0.65rem 1rem; font-size: 0.85rem; color: var(--card-text-sec); }
+
+/* ── Category tabs ──────────────────────────────────────────────── */
+.category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+}
+.category-tabs::-webkit-scrollbar { display: none; }
+
+.category-tab {
+  white-space: nowrap;
+  background: var(--pill-bg);
+  border: 1.5px solid var(--pill-border);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+  color: var(--pill-text);
+  font-weight: 500;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.category-tab:hover { background: var(--pill-hover); }
+.category-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Dandy: active tab gets a playful look */
+.app[data-wiki="dandy"] .category-tab.active {
+  box-shadow: 0 2px 8px rgba(255,79,173,0.4);
+}
+
+/* HP/HG: active tab uses accent with glow */
+.app[data-wiki="harry-potter"] .category-tab.active,
+.app[data-wiki="hunger-games"] .category-tab.active {
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+/* ── Search + sort bar ──────────────────────────────────────────── */
+.search-sort-bar { display: flex; gap: 0.75rem; align-items: center; }
+
+.search-input-wrap { position: relative; flex: 1; }
+
+.search-icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.thread-search {
+  width: 100%;
+  border: 1.5px solid var(--controls-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.875rem 0.65rem 2.4rem;
+  font-size: 0.93rem;
+  font-family: inherit;
+  outline: none;
+  background: var(--input-bg);
+  color: var(--card-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+.thread-search::placeholder { color: var(--card-text-sec); opacity: 0.7; }
+.thread-search:focus { border-color: var(--accent); background: var(--card-bg); }
+
+.sort-pills { display: flex; gap: 0.4rem; flex-shrink: 0; }
+
+.sort-pill {
+  background: var(--pill-bg);
+  border: 1.5px solid var(--pill-border);
+  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.84rem;
+  cursor: pointer;
+  color: var(--pill-text);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.sort-pill:hover { background: var(--pill-hover); }
+.sort-pill.active {
+  background: var(--active-pill-bg);
+  border-color: var(--active-pill-bg);
+  color: var(--active-pill-text);
+  font-weight: 600;
+}
+
+/* ── Thread list & cards ────────────────────────────────────────── */
+.thread-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.thread-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--controls-border);
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+.thread-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 3px 14px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
+}
+
+/* HP: parchment card hover glow */
+.app[data-wiki="harry-potter"] .thread-card:hover {
+  box-shadow: 0 3px 14px rgba(201,168,76,0.2);
+}
+
+/* HG: ember card hover glow */
+.app[data-wiki="hunger-games"] .thread-card:hover {
+  box-shadow: 0 3px 14px rgba(232,160,32,0.18);
+}
+
+/* Dandy: bouncy card */
+.app[data-wiki="dandy"] .thread-card:hover {
+  box-shadow: 0 4px 16px rgba(255,79,173,0.2);
+}
+
+.thread-card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.thread-card-meta { display: flex; align-items: center; gap: 0.5rem; }
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.avatar.sm { width: 24px; height: 24px; font-size: 0.72rem; }
+
+.thread-author { font-size: 0.875rem; font-weight: 600; color: var(--card-text); }
+.thread-date { font-size: 0.8rem; color: var(--card-text-sec); }
+
+.flair-badge {
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.thread-card-body { display: flex; flex-direction: column; gap: 0.3rem; }
+.thread-title { font-size: 1rem; font-weight: 600; color: var(--card-text); line-height: 1.35; }
+.thread-excerpt { font-size: 0.875rem; color: var(--card-text-sec); line-height: 1.5; }
+.thread-card-footer { display: flex; gap: 1.25rem; }
+.thread-stat { font-size: 0.82rem; color: var(--card-text-sec); }
+
+.no-threads { text-align: center; color: var(--card-text-sec); padding: 3rem 0; font-size: 0.9rem; }
+.discussion-loading { text-align: center; color: var(--card-text-sec); padding: 4rem 0; font-size: 0.9rem; }
+
+/* ── Thread detail ──────────────────────────────────────────────── */
+.thread-detail { display: flex; flex-direction: column; gap: 1rem; padding-bottom: 96px; }
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+}
+.back-btn:hover { text-decoration: underline; }
+
+.detail-op {
+  background: var(--card-bg);
+  border: 1.5px solid var(--controls-border);
+  border-radius: 10px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.detail-op-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.detail-meta { display: flex; align-items: center; gap: 0.5rem; }
+.detail-title { font-size: 1.15rem; font-weight: 700; color: var(--card-text); line-height: 1.35; }
+.detail-content { font-size: 0.92rem; color: var(--card-text); line-height: 1.65; white-space: pre-wrap; opacity: 0.9; }
+
+.detail-replies { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.replies-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--card-text-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 0.25rem;
+}
+
+.reply-item {
+  background: var(--card-bg);
+  border: 1px solid var(--controls-border);
+  border-radius: 8px;
+  padding: 0.875rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.reply-item.liked { border-left: 3px solid #d97706; }
+
+.reply-header { display: flex; align-items: center; gap: 0.45rem; }
+.liked-badge { font-size: 0.75rem; font-weight: 700; color: #d97706; margin-left: auto; }
+.reply-content { font-size: 0.88rem; color: var(--card-text); line-height: 1.55; white-space: pre-wrap; opacity: 0.9; }
+
+/* ── Like buttons ───────────────────────────────────────────────── */
+
+/* Vertical: heart on top, count below — used on replies and OP */
+.like-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.05rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.05rem;
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  color: var(--card-text-sec);
+  transition: transform 0.15s, color 0.15s;
+}
+.like-btn span { font-size: 0.68rem; font-weight: 700; }
+.like-btn:hover { transform: scale(1.2); color: #ef4444; }
+.like-btn.liked { color: #ef4444; }
+
+/* Inline: heart + count on one line — used on thread cards */
+.like-btn-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--card-text-sec);
+  padding: 0;
+  transition: transform 0.12s, color 0.12s;
+}
+.like-btn-inline:hover { transform: scale(1.15); color: #ef4444; }
+.like-btn-inline.liked { color: #ef4444; }
+
+/* Footer row inside detail OP and replies */
+.detail-op-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--controls-border);
+  padding-top: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.reply-footer { display: flex; justify-content: flex-end; }
+
+/* ── Reply composer (floating bar) ─────────────────────────────── */
+.reply-composer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1100px;
+  background: var(--card-bg);
+  border-top: 1.5px solid var(--controls-border);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+  padding: 0.75rem 2rem;
+  z-index: 40;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+.reply-input {
+  flex: 1;
+  border: 1.5px solid var(--controls-border);
+  border-radius: 8px;
+  padding: 0.6rem 0.875rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: none;
+  min-height: 44px;
+  max-height: 140px;
+  background: var(--input-bg);
+  color: var(--card-text);
+  outline: none;
+  transition: border-color 0.15s;
+  overflow-y: auto;
+}
+.reply-input::placeholder { color: var(--card-text-sec); opacity: 0.7; }
+.reply-input:focus { border-color: var(--accent); }
