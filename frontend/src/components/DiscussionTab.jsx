@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import ThreadCard from './ThreadCard'
 import ThreadDetail from './ThreadDetail'
 
-const CATEGORY_LABEL = { other: 'General' }
+const CATEGORY_LABEL = { other: 'General', Fanfic: 'FanFic' }
 export const displayCategory = cat => CATEGORY_LABEL[cat] ?? cat
 
 const CATEGORY_EMOJI = {
@@ -13,6 +13,8 @@ const CATEGORY_EMOJI = {
   Trading: '💰',
   Event: '🎉',
   Ranking: '🏆',
+  Poll: '📊',
+  'New Launch': '🆕',
   Opinion: '💡',
   Theories: '🔮',
   Questions: '❓',
@@ -52,7 +54,7 @@ function buildThreads(rawPosts) {
   })
 }
 
-export default function DiscussionTab({ onWikiChange, onThreadSelect }) {
+export default function DiscussionTab({ onWikiChange, onThreadSelect, newThreads = [] }) {
   const [threads, setThreads] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedWiki, setSelectedWiki] = useState(null)
@@ -102,13 +104,15 @@ export default function DiscussionTab({ onWikiChange, onThreadSelect }) {
     [wikis, wikiSearch]
   )
 
+  const allThreads = useMemo(() => [...newThreads, ...threads], [newThreads, threads])
+
   const categories = useMemo(() => {
-    const cats = new Set(threads.map(t => t.category))
+    const cats = new Set(allThreads.map(t => t.category))
     return ['All', ...cats]
-  }, [threads])
+  }, [allThreads])
 
   const visibleThreads = useMemo(() => {
-    let list = threads
+    let list = allThreads
     if (selectedWiki) list = list.filter(t => t.wiki_id === selectedWiki.id)
     if (selectedCategory !== 'All') list = list.filter(t => t.category === selectedCategory)
     if (searchQuery.trim()) {
@@ -122,7 +126,7 @@ export default function DiscussionTab({ onWikiChange, onThreadSelect }) {
     if (sortBy === 'liked') list = [...list].sort((a, b) => b.total_likes - a.total_likes)
     if (sortBy === 'replies') list = [...list].sort((a, b) => b.reply_count - a.reply_count)
     return list
-  }, [threads, selectedWiki, selectedCategory, searchQuery, sortBy])
+  }, [allThreads, selectedWiki, selectedCategory, searchQuery, sortBy])
 
   if (loading) return <div className="discussion-loading">Loading threads…</div>
 
@@ -188,7 +192,7 @@ export default function DiscussionTab({ onWikiChange, onThreadSelect }) {
 
         {/* Category tabs */}
         <div className="filter-row">
-          <span className="filter-label">📂 Category</span>
+          <span className="filter-label">🏷️ Flair</span>
           <div className="category-tabs">
             {categories.map(cat => (
               <button

@@ -1,38 +1,47 @@
 import React, { useState } from 'react'
 import PostComposer from './PostComposer'
 
-export default function PostEntry() {
+export default function PostEntry({ onNewPost }) {
   const [composerOpen, setComposerOpen] = useState(false)
-  const [posts, setPosts] = useState([])
 
   function handleSubmit(post) {
-    setPosts(prev => [{ ...post, id: Date.now() }, ...prev])
+    const now = new Date().toISOString().replace('T', ' ').slice(0, 19)
+    const postId = Date.now()
+    const content = post.content || post.url || (post.file ? post.file.name : '')
+    onNewPost({
+      thread_id: `user-${postId}`,
+      wiki_id: null,
+      wiki_name: null,
+      title: post.title,
+      content,
+      category: post.flair || 'other',
+      post_time: now,
+      latest_time: now,
+      user_name: 'You',
+      reply_count: 0,
+      total_likes: 0,
+      posts: [{
+        post_id: postId,
+        post_role: 'op',
+        user_name: 'You',
+        post_time: now,
+        content,
+        n_likes: 0,
+      }],
+    })
   }
 
   return (
-    <div className="feed">
+    <div>
       <div className="entry-box" onClick={() => setComposerOpen(true)}>
         What's on your mind?
       </div>
-
       {composerOpen && (
         <PostComposer
           onClose={() => setComposerOpen(false)}
           onSubmit={handleSubmit}
         />
       )}
-
-      <div className="post-list">
-        {posts.map(post => (
-          <div key={post.id} className="post-card">
-            {post.flair && <span className="post-flair">{post.flair}</span>}
-            <p className="post-type">{post.type}</p>
-            {post.content && <p>{post.content}</p>}
-            {post.file && <p>{post.file.name}</p>}
-            {post.url && <a href={post.url} target="_blank" rel="noreferrer">{post.url}</a>}
-          </div>
-        ))}
-      </div>
     </div>
   )
 }

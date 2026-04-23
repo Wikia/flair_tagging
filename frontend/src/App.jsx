@@ -73,7 +73,12 @@ const WIKI_THEMES = {
 export default function App() {
   const [wikiName, setWikiName] = useState(null)
   const [threadOpen, setThreadOpen] = useState(false)
+  const [newThreads, setNewThreads] = useState([])
   const theme = wikiName ? (WIKI_THEMES[wikiName] ?? FANDOM_THEME) : FANDOM_THEME
+
+  function handleNewThread(thread) {
+    setNewThreads(prev => [thread, ...prev])
+  }
 
   useEffect(() => {
     const r = document.documentElement
@@ -112,8 +117,8 @@ export default function App() {
         )}
       </div>
       <div className="app-content">
-        {!threadOpen && <PostEntry />}
-        <DiscussionTab onWikiChange={setWikiName} onThreadSelect={setThreadOpen} />
+        {!threadOpen && <PostEntry onNewPost={handleNewThread} />}
+        <DiscussionTab onWikiChange={setWikiName} onThreadSelect={setThreadOpen} newThreads={newThreads} />
       </div>
     </div>
   )

@@ -1,0 +1,18 @@
+{
+  "name": "Flair Tagging",
+  "description": "Browse, filter, and post wiki discussion threads with flair categories",
+  "packageName": "flair-tagging",
+  "version": "0.1.0",
+  "specialPage": "FlairTagging",
+  "targeting": {
+    "wikis": "global"
+  },
+  "entrypoints": [
+    {
+      "placement": "desktop-drawer",
+      "iconName": "discussion",
+      "label": "Flair Discussions",
+      "backgroundColor": "#E8375C"
+    }
+  ]
+}
