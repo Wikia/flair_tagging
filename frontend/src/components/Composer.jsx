@@ -5,7 +5,7 @@ import { classNames } from '../utils'
 export function WhatsOnMind({ onOpen }) {
   return (
     <div className="whats-on-mind" onClick={onOpen} role="button" tabIndex={0}>
-      <div className="wom-avatar">Y</div>
+      <div className="wom-avatar">A</div>
       <div className="wom-prompt">What's on your mind?</div>
       <div className="wom-actions">
         <div className="wom-icon" title="Text">✏️</div>

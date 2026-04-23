@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vercel --prod --scope fandom-projects)",
+      "Bash(vercel alias *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://flair-tagging.vercel.app)",
+      "Bash(curl -s https://flair-tagging.vercel.app)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://flair-tagging.vercel.app/data/sample_export.json)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://flair-tagging.vercel.app/image/fandom-icon.png)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://flair-tagging.vercel.app/image/dandy-1.jpg)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://flair-tagging.vercel.app/image/hunger-game-2.jpg)"
+    ]
+  }
+}
